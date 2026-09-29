@@ -1,6 +1,6 @@
 const https = require("https");
 
-const BOT_TOKEN = "8695713031:AAFRqI4TaTkYm88OuRHieSKdwwZQBU7gyvc"; // Ваш токен от @BotFather
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHANNEL_USERNAME = "@SchoolEmotionalBalance";
 const MINI_APP_URL = "https://school-emo-balance.ru";
 const PRE_CHAT_URL = "https://t.me/+R7CROx6JCx9lZGZi";

@@ -1,6 +1,6 @@
 const https = require("https");
 
-const BOT_TOKEN = "ВСТАВЬТЕ_ТОКЕН_БОТА"; // Ваш токен от @BotFather
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZBLqafeJZtGblEcNCuIeGsJ45FTbUuyW8PJqzz2uaJyzCpViAwqqZunmvakH90jVsdA/exec";
 const ZOOM_URL = "https://zoom.us/j/YOUR_MEETING_ID"; // Ссылка на вебинарную комнату
 const MINI_APP_URL = "https://school-emo-balance.ru";
