@@ -8,6 +8,11 @@ const ANKETA_URL = "https://school-emo-balance.ru/anketa_pred";
 
 function callTg(method, data) {
   return new Promise((resolve, reject) => {
+    if (!BOT_TOKEN) {
+      reject(new Error("BOT_TOKEN is not configured"));
+      return;
+    }
+
     const payload = JSON.stringify(data);
     const req = https.request({
       hostname: "api.telegram.org",
@@ -17,7 +22,18 @@ function callTg(method, data) {
     }, res => {
       let body = "";
       res.on("data", c => body += c);
-      res.on("end", () => resolve(JSON.parse(body || "{}")));
+      res.on("end", () => {
+        try {
+          const result = JSON.parse(body || "{}");
+          if (res.statusCode < 200 || res.statusCode >= 300 || !result.ok) {
+            reject(new Error(`Telegram ${method} failed: ${result.description || `HTTP ${res.statusCode}`}`));
+            return;
+          }
+          resolve(result);
+        } catch (error) {
+          reject(new Error(`Telegram ${method} returned an invalid response: ${error.message}`));
+        }
+      });
     });
     req.on("error", reject);
     req.write(payload);
